@@ -1,0 +1,47 @@
+{
+  "meta": {
+    "version": "1",
+    "style_id": "dark-alert-report",
+    "style_name": "深色警示报告风",
+    "source": "preset",
+    "reason": "适合风险预警、负面舆情、异常监测等高警示度内容"
+  },
+  "colors": {
+    "page_background": "#0b1020",
+    "page_gradient": "linear-gradient(180deg, #0b1020 0%, #141b34 55%, #18233d 100%)",
+    "surface": "rgba(15, 23, 42, 0.9)",
+    "surface_border": "rgba(255, 255, 255, 0.08)",
+    "primary": "#ffffff",
+    "secondary": "#cbd5e1",
+    "accent": "#ef4444",
+    "accent_soft": "rgba(239, 68, 68, 0.14)",
+    "text_primary": "#ffffff",
+    "text_secondary": "#cbd5e1",
+    "text_muted": "#94a3b8"
+  },
+  "fonts": {
+    "title_family": "'Noto Sans SC', sans-serif",
+    "body_family": "'Noto Sans SC', sans-serif",
+    "mono_family": "'JetBrains Mono', 'DM Mono', monospace",
+    "title_size": "60px",
+    "heading_size": "38px",
+    "body_size": "30px",
+    "label_size": "24px",
+    "title_weight": 800,
+    "body_weight": 400
+  },
+  "layout": {
+    "canvas_width": "1080px",
+    "min_height": "100vh",
+    "page_padding": "40px",
+    "container_width": "1000px",
+    "section_gap": "28px",
+    "card_padding": "36px",
+    "card_radius": "28px"
+  },
+  "effects": {
+    "shadow": "0 18px 48px rgba(0, 0, 0, 0.35)",
+    "glow": "0 0 24px rgba(239, 68, 68, 0.18)",
+    "noise": false
+  }
+}

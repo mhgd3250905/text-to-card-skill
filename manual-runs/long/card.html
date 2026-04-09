@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>Medtrum 舆情监测卡片</title>
+  <style>
+    :root {
+      --page-background: #0b1020;
+      --page-gradient: linear-gradient(180deg, #0b1020 0%, #141b34 55%, #18233d 100%);
+      --surface: rgba(15, 23, 42, 0.9);
+      --surface-border: rgba(255, 255, 255, 0.08);
+      --primary: #ffffff;
+      --secondary: #cbd5e1;
+      --accent: #ef4444;
+      --accent-soft: rgba(239, 68, 68, 0.14);
+      --text-primary: #ffffff;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --shadow: 0 18px 48px rgba(0, 0, 0, 0.35);
+      --glow: 0 0 24px rgba(239, 68, 68, 0.18);
+      --page-padding: 40px;
+      --container-width: 1000px;
+      --section-gap: 28px;
+      --card-padding: 36px;
+      --card-radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1080px;
+      min-height: 100vh;
+      padding: var(--page-padding);
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--page-gradient);
+      color: var(--text-primary);
+    }
+
+    .page {
+      width: var(--container-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--section-gap);
+    }
+
+    .hero,
+    .card,
+    .warning-box {
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+    }
+
+    .hero {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at top right, rgba(239, 68, 68, 0.18), transparent 34%);
+      pointer-events: none;
+    }
+
+    .badge-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(239, 68, 68, 0.34);
+      background: var(--accent-soft);
+      color: #fecaca;
+      font-size: 22px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .title {
+      font-size: 60px;
+      line-height: 1.12;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+    }
+
+    .subtitle {
+      font-size: 30px;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .warning-box {
+      padding: 34px;
+      background: linear-gradient(180deg, rgba(239, 68, 68, 0.15), rgba(15, 23, 42, 0.95));
+      border: 1px solid rgba(239, 68, 68, 0.32);
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    .warning-title {
+      font-size: 34px;
+      font-weight: 800;
+      color: #fecaca;
+    }
+
+    .warning-text {
+      font-size: 30px;
+      line-height: 1.65;
+      color: var(--text-primary);
+    }
+
+    .card {
+      padding: var(--card-padding);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section-title {
+      font-size: 38px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .section-body {
+      font-size: 30px;
+      line-height: 1.68;
+      color: var(--text-secondary);
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .timeline-item {
+      display: grid;
+      grid-template-columns: 180px 1fr;
+      gap: 22px;
+      align-items: start;
+      padding: 22px 24px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .timeline-date {
+      font-size: 24px;
+      font-weight: 800;
+      color: #fecaca;
+      letter-spacing: 0.03em;
+    }
+
+    .timeline-text {
+      font-size: 28px;
+      line-height: 1.65;
+      color: var(--text-primary);
+    }
+
+    .pill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 14px;
+    }
+
+    .pill {
+      padding: 12px 18px;
+      border-radius: 999px;
+      font-size: 24px;
+      color: var(--text-secondary);
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .footer {
+      padding: 8px 0 20px;
+      text-align: center;
+      color: var(--text-muted);
+      font-size: 22px;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="badge-row">
+        <span class="badge">监管公告</span>
+        <span class="badge">连续监测系统</span>
+        <span class="badge">近 7 天汇总</span>
+      </div>
+      <h1 class="title">Medtrum（上海移宇科技）最近 7 天信息汇总</h1>
+      <p class="subtitle">核心事件是西班牙药品和医疗器械局 AEMPS 针对 Medtrum A8 TouchCare 连续葡萄糖监测系统发布停售及市场撤回公告，监管动作聚焦传感器与发射器，不涉及胰岛素泵。</p>
+    </section>
+
+    <section class="warning-box">
+      <h2 class="warning-title">核心风险提示</h2>
+      <p class="warning-text">受影响产品包括传感器型号 MD3658 与发射器型号 MD1158。当前公开信息指向预防性措施，后续关注点是制造商补充的临床数据与监管反馈节奏。</p>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">事件时间线</h2>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-date">2026-03-30</div>
+          <div class="timeline-text">AEMPS 官方发布停售及市场撤回公告，明确点名 Medtrum A8 TouchCare 连续葡萄糖监测系统相关部件。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-03</div>
+          <div class="timeline-text">X 平台用户开始分享使用体验与风险讨论，形成第一波外部传播。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-06</div>
+          <div class="timeline-text">Tenerife 医学院转发公告，事件从监管通报扩散到专业机构信息流。</div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-date">2026-04-07</div>
+          <div class="timeline-text">Catalunya 糖尿病协会发布告知帖文，患者社区层面的关注度进一步上升。</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">平台状态</h2>
+      <p class="section-body">近 7 天可见讨论主要集中在 X 平台；微博、微信、小红书暂未检索到明显结果，说明中文社媒侧尚未形成广泛扩散，但国际公开渠道已经进入持续观察区间。</p>
+      <div class="pill-grid">
+        <span class="pill">X 平台：有讨论</span>
+        <span class="pill">微博：近 7 天无结果</span>
+        <span class="pill">微信：近 7 天无结果</span>
+        <span class="pill">小红书：近 7 天无结果</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">结论与后续观察</h2>
+      <p class="section-body">当前更接近预防性监管动作，而非已经确认的系统性伤害结论。下一步重点观察制造商是否补充临床数据、是否出现更多国家监管机构跟进，以及患者社群中是否出现新增实测反馈。</p>
+    </section>
+
+    <div class="footer">Long-form monitoring card for mobile sharing and screenshot export</div>
+  </main>
+</body>
+</html>

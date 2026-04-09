@@ -1,0 +1,22 @@
+{
+  "cases": [
+    {
+      "name": "short",
+      "dir": "short",
+      "png_validation": {
+        "expected_width": 1080,
+        "min_height": 1200,
+        "min_ratio": 1.1
+      }
+    },
+    {
+      "name": "long",
+      "dir": "long",
+      "png_validation": {
+        "expected_width": 1080,
+        "min_height": 1600,
+        "min_ratio": 1.4
+      }
+    }
+  ]
+}

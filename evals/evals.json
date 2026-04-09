@@ -1,0 +1,43 @@
+{
+  "skill_name": "card-creator",
+  "evals": [
+    {
+      "id": 1,
+      "name": "数据报告卡片",
+      "prompt": "帮我做一个数据报告分享卡片，内容是：本周销售数据汇总，总销售额 125.6 万，环比增长 23%，热销产品前三：手机壳、充电宝、数据线。目标：朋友圈分享",
+      "expected_output": "在当前目录生成 design.json、card.html、card.png，且三步都通过校验",
+      "assertions": [
+        {"name": "产出 design.json", "type": "artifact_exists", "path": "design.json"},
+        {"name": "产出 card.html", "type": "artifact_exists", "path": "card.html"},
+        {"name": "产出 card.png", "type": "artifact_exists", "path": "card.png"},
+        {"name": "design schema 完整", "type": "command_exit_zero", "command": "python scripts/validate_design_json.py design.json"},
+        {"name": "html 通过校验", "type": "command_exit_zero", "command": "python scripts/validate_html.py card.html"},
+        {"name": "png 内容有效", "type": "command_exit_zero", "command": "python scripts/validate_png.py card.png --expected-width 1080 --min-height 1200 --min-ratio 1.1 --reject-blank"}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "活动宣传卡片",
+      "prompt": "制作一个活动海报卡片：比特街舞 Breaking 训练营，时间：每周二周五晚 7 点，地点：浦东新区高木桥路 561 号，适合零基础入门，2 小时高效训练。风格要年轻活力",
+      "expected_output": "生成一套完整卡片产物链，并保持手机单列分享卡片布局",
+      "assertions": [
+        {"name": "产出 design.json", "type": "artifact_exists", "path": "design.json"},
+        {"name": "design 来源合法", "type": "json_value_in_set", "path": "design.json", "json_path": "meta.source", "expected": ["preset", "generated"]},
+        {"name": "html 通过校验", "type": "command_exit_zero", "command": "python scripts/validate_html.py card.html"},
+        {"name": "png 内容有效", "type": "command_exit_zero", "command": "python scripts/validate_png.py card.png --expected-width 1080 --min-height 1200 --min-ratio 1.1 --reject-blank"}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "长内容报告卡片",
+      "prompt": "做一个长内容舆情监测报告卡片，标题：Medtrum（上海移宇科技）最近7天信息汇总。内容：核心事件是西班牙药品和医疗器械局（AEMPS）针对 Medtrum A8 TouchCare 连续葡萄糖监测系统发布停售及市场撤回公告，受影响产品包括传感器（型号 MD3658）和发射器（型号 MD1158），不涉及胰岛素泵。时间线：2026年3月30日 AEMPS官方发布公告，4月3日 X平台用户分享使用体验，4月6日 Tenerife医学院转发公告，4月7日 Catalunya糖尿病协会发布告知帖文。平台状态：X平台有讨论，微博/微信/小红书近7天无结果。总结：预防性措施，等待制造商提供临床数据。",
+      "expected_output": "生成长内容卡片，内容完整展开，不因固定高度被截断",
+      "assertions": [
+        {"name": "产出 design.json", "type": "artifact_exists", "path": "design.json"},
+        {"name": "设计稿字号达标", "type": "command_exit_zero", "command": "python scripts/validate_design_json.py design.json"},
+        {"name": "html 未写固定 body 高度", "type": "command_exit_zero", "command": "python scripts/validate_html.py card.html"},
+        {"name": "长图内容有效", "type": "command_exit_zero", "command": "python scripts/validate_png.py card.png --expected-width 1080 --min-height 1600 --min-ratio 1.4 --reject-blank"}
+      ]
+    }
+  ]
+}

@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1080">
+  <title>销售周报卡片</title>
+  <style>
+    :root {
+      --page-background: #0d1321;
+      --page-gradient: linear-gradient(165deg, #0d1321 0%, #1a1f3c 35%, #242444 70%, #1e2a4a 100%);
+      --surface: rgba(255, 255, 255, 0.06);
+      --surface-border: rgba(255, 255, 255, 0.12);
+      --primary: #ffffff;
+      --secondary: #60a5fa;
+      --accent: #f59e0b;
+      --accent-soft: rgba(245, 158, 11, 0.15);
+      --text-primary: #f8fafc;
+      --text-secondary: #cbd5e1;
+      --text-muted: #94a3b8;
+      --shadow: 0 18px 48px rgba(15, 23, 42, 0.28);
+      --glow: 0 0 20px rgba(96, 165, 250, 0.16);
+      --page-padding: 40px;
+      --container-width: 1000px;
+      --section-gap: 28px;
+      --card-padding: 36px;
+      --card-radius: 28px;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      width: 1080px;
+      min-height: 100vh;
+      padding: var(--page-padding);
+      font-family: 'Noto Sans SC', sans-serif;
+      background: var(--page-gradient);
+      color: var(--text-primary);
+    }
+
+    .page {
+      width: var(--container-width);
+      margin: 0 auto;
+      display: flex;
+      flex-direction: column;
+      gap: var(--section-gap);
+    }
+
+    .hero,
+    .card {
+      position: relative;
+      overflow: hidden;
+      background: var(--surface);
+      border: 1px solid var(--surface-border);
+      border-radius: var(--card-radius);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(18px);
+    }
+
+    .hero::after,
+    .card::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(96, 165, 250, 0.14), transparent 42%, rgba(245, 158, 11, 0.08));
+      pointer-events: none;
+    }
+
+    .hero {
+      padding: 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 22px;
+    }
+
+    .hero-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 22px;
+      border-radius: 999px;
+      background: rgba(96, 165, 250, 0.14);
+      border: 1px solid rgba(96, 165, 250, 0.34);
+      color: var(--secondary);
+      font-size: 24px;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      box-shadow: var(--glow);
+    }
+
+    .hero-title {
+      font-size: 56px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.03em;
+      color: var(--primary);
+    }
+
+    .hero-subtitle {
+      font-size: 30px;
+      line-height: 1.55;
+      color: var(--text-secondary);
+      max-width: 860px;
+    }
+
+    .metrics {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    .metric {
+      padding: 24px;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .metric-label {
+      font-size: 22px;
+      color: var(--text-muted);
+      margin-bottom: 10px;
+    }
+
+    .metric-value {
+      font-size: 42px;
+      font-weight: 800;
+      color: var(--primary);
+      line-height: 1.15;
+    }
+
+    .metric-note {
+      margin-top: 10px;
+      font-size: 24px;
+      color: var(--accent);
+      font-weight: 700;
+    }
+
+    .card {
+      padding: var(--card-padding);
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .section-title {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .rank-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+    }
+
+    .rank-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+      padding: 22px 24px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+    }
+
+    .rank-left {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      font-size: 30px;
+      color: var(--text-primary);
+    }
+
+    .rank-index {
+      width: 44px;
+      height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .rank-tag {
+      padding: 8px 16px;
+      border-radius: 999px;
+      font-size: 22px;
+      color: var(--secondary);
+      background: rgba(96, 165, 250, 0.14);
+      border: 1px solid rgba(96, 165, 250, 0.28);
+    }
+
+    .footer {
+      font-size: 24px;
+      color: var(--text-muted);
+      text-align: center;
+      padding: 8px 0 20px;
+      letter-spacing: 0.04em;
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero">
+      <div class="hero-top">
+        <span class="badge">Weekly Snapshot</span>
+        <span class="badge">朋友圈分享</span>
+      </div>
+      <h1 class="hero-title">本周销售数据汇总</h1>
+      <p class="hero-subtitle">核心看点是整体销售额继续上冲，环比增速保持高位，热销品类集中在高频刚需配件，适合直接做团队分享和朋友圈传播。</p>
+      <div class="metrics">
+        <div class="metric">
+          <div class="metric-label">总销售额</div>
+          <div class="metric-value">125.6 万</div>
+          <div class="metric-note">本周成交额</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">环比增长</div>
+          <div class="metric-value">23%</div>
+          <div class="metric-note">连续向上</div>
+        </div>
+        <div class="metric">
+          <div class="metric-label">热销集中度</div>
+          <div class="metric-value">TOP 3</div>
+          <div class="metric-note">高频品类驱动</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2 class="section-title">热销产品前三</h2>
+      <div class="rank-list">
+        <div class="rank-item">
+          <div class="rank-left"><span class="rank-index">1</span><span>手机壳</span></div>
+          <span class="rank-tag">高复购</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-left"><span class="rank-index">2</span><span>充电宝</span></div>
+          <span class="rank-tag">拉升客单</span>
+        </div>
+        <div class="rank-item">
+          <div class="rank-left"><span class="rank-index">3</span><span>数据线</span></div>
+          <span class="rank-tag">稳定走量</span>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer">Share-ready card generated for mobile social distribution</div>
+  </main>
+</body>
+</html>

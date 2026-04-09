@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+agent-verification/
+manual-runs/**/card-recheck.png

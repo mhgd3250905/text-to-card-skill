@@ -1,4 +1,4 @@
-# `design.json` Schema
+﻿# `design.json` Schema
 
 `card-creator` 的 Step 1 产物必须写成这个结构。字段可以扩展，但下面这些字段不能缺。
 
@@ -59,6 +59,9 @@
 - `layout.min_height` 固定为 `100vh`
 - `fonts.title_size` 不低于 `48px`
 - `fonts.body_size` 不低于 `28px`
+- `fonts.label_size` 不低于 `22px`
+- `layout.section_gap` 不低于 `20px`
+- `layout.card_padding` 不低于 `28px`
 - `meta.source` 只能是 `preset` 或 `generated`
 
 ## 为什么要固定 schema
